@@ -34,7 +34,7 @@ import { LaravelPaginator } from '@/types';
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     paginator: LaravelPaginator<TData>;
-    action: { url: () => string }; // Wayfinder action
+    action: { url: () => string };
     children?: React.ReactNode;
     columnFilter?: string;
     titleFilter?: string;
@@ -67,6 +67,28 @@ export function DataTable<TData, TValue>({
         pageIndex: paginator.current_page - 1,
         pageSize: paginator.per_page,
     });
+
+    const searchParams = new URLSearchParams(window.location.search);
+
+    const [search, setSearch] = React.useState(
+        searchParams.get('search') ?? '',
+    );
+
+    React.useEffect(() => {
+        const timeout = setTimeout(() => {
+            router.get(
+                action.url(),
+                {
+                    search: search || undefined, // undefined agar tidak muncul di URL kalau kosong
+                    page: 1, // reset ke page 1 saat search
+                    per_page: pagination.pageSize,
+                },
+                { preserveState: true, preserveScroll: true, replace: true },
+            );
+        }, 400); // debounce
+
+        return () => clearTimeout(timeout);
+    }, [search]);
 
     React.useEffect(() => {
         setPagination({
@@ -124,6 +146,8 @@ export function DataTable<TData, TValue>({
                     optionsFilter={optionsFilter}
                     titleFilter={titleFilter}
                     columnFilter={columnFilter}
+                    search={search}
+                    onSearchChange={setSearch}
                 >
                     {children}
                 </DataTableToolbar>
@@ -134,7 +158,7 @@ export function DataTable<TData, TValue>({
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow
                                 key={headerGroup.id}
-                                className="bg-sidebar hover:bg-sidebar dark:bg-yellow-800"
+                                className="bg-primary text-white hover:bg-primary/90"
                             >
                                 {headerGroup.headers.map((header) => {
                                     return (

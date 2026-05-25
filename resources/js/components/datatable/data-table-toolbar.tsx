@@ -6,11 +6,8 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { DataTableViewOptions } from './data-table-view-options';
-
-// import { statuses } from '@/pages/menu-sidebar/Dashboard/data/data';
 import React from 'react';
 import { DataTableFacetedFilter } from './data-table-faceted-filter';
-import { LaporanTipeOptions } from '@/pages/menu/laporan/interface';
 
 interface DataTableToolbarProps<TData> {
     table: Table<TData>;
@@ -22,6 +19,8 @@ interface DataTableToolbarProps<TData> {
         value: string;
         icon?: React.ComponentType<{ className?: string }>;
     }[];
+    search?: string;
+    onSearchChange?: (value: string) => void;
 }
 
 export function DataTableToolbar<TData>({
@@ -30,7 +29,10 @@ export function DataTableToolbar<TData>({
     columnFilter,
     titleFilter,
     optionsFilter,
+    search,
+    onSearchChange,
 }: DataTableToolbarProps<TData>) {
+    'use no memo';
     const isFiltered = table.getState().columnFilters.length > 0;
     // const isGlobalFiltered = table.getState().globalFilter !== '';
 
@@ -41,7 +43,6 @@ export function DataTableToolbar<TData>({
         setSearchValue(value);
         table.setGlobalFilter(value);
     };
-    
 
     return (
         <div className="flex items-center justify-between">
@@ -60,12 +61,12 @@ export function DataTableToolbar<TData>({
                     className="w-full bg-gray-50 xl:w-62.5"
                 /> */}
 
-                <Input
+                {/* <Input
                     placeholder="Cari sesuatu..."
                     value={searchValue}
                     onChange={handleSearchChange}
                     className="w-full bg-gray-50 xl:w-62.5 dark:bg-neutral-800"
-                />
+                /> */}
                 {/* {table.getColumn('tipe') && (
                     <DataTableFacetedFilter
                             column={table.getColumn('tipe')}
@@ -73,6 +74,16 @@ export function DataTableToolbar<TData>({
                             options={LaporanTipeOptions}
                         />
                 )} */}
+
+                {search !== undefined && onSearchChange !== undefined && (
+                    <Input
+                        placeholder="Cari..."
+                        value={search}
+                        onChange={(e) => onSearchChange(e.target.value)}
+                        className="w-full bg-gray-50 xl:w-62.5 dark:bg-neutral-800"
+                    />
+                )}
+
                 {columnFilter &&
                     optionsFilter &&
                     table.getColumn(columnFilter) && (
@@ -98,7 +109,7 @@ export function DataTableToolbar<TData>({
                 )}
                 {children}
             </div>
-            {/* <DataTableViewOptions table={table} /> */}
+            <DataTableViewOptions table={table} />
         </div>
     );
 }

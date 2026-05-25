@@ -3,7 +3,7 @@ import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import { dashboard } from '@/routes';
 import { DataTable } from '@/components/datatable/data-table';
 import data from '@/components/datatable/data.json';
-import { columns } from './columns';
+import { columns } from './menu-sidebar/example/columns';
 
 export default function Dashboard() {
     

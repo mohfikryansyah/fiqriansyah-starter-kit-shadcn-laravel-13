@@ -37,6 +37,7 @@ export function DataTableFacetedFilter<TData, TValue>({
     title,
     options,
 }: DataTableFacetedFilterProps<TData, TValue>) {
+    'use no memo';
     const facets = column?.getFacetedUniqueValues();
     const [selectedValues, setSelectedValues] = useState<Set<string>>(
         new Set((column?.getFilterValue() as string[]) || []),
