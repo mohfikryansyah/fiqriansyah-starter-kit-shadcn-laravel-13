@@ -24,7 +24,7 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Test',
+        title: 'Example Data Table',
         href: test.index(),
         icon: LayoutGrid,
     },

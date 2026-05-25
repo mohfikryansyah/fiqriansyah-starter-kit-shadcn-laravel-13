@@ -79,13 +79,13 @@ export function DataTable<TData, TValue>({
             router.get(
                 action.url(),
                 {
-                    search: search || undefined, // undefined agar tidak muncul di URL kalau kosong
-                    page: 1, // reset ke page 1 saat search
+                    search: search || undefined,
+                    page: 1,
                     per_page: pagination.pageSize,
                 },
                 { preserveState: true, preserveScroll: true, replace: true },
             );
-        }, 400); // debounce
+        }, 400);
 
         return () => clearTimeout(timeout);
     }, [search]);
@@ -129,7 +129,7 @@ export function DataTable<TData, TValue>({
                 },
             );
         },
-        manualPagination: true, // ← matikan pagination client-side
+        manualPagination: true,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
@@ -139,7 +139,7 @@ export function DataTable<TData, TValue>({
     });
 
     return (
-        <div className="space-y-4 p-4">
+        <div className="space-y-4">
             {showToolbar && (
                 <DataTableToolbar
                     table={table}

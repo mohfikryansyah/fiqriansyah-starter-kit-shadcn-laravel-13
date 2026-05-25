@@ -5,6 +5,14 @@ import { Head } from '@inertiajs/react';
 import test from '@/routes/test';
 import { index } from '@/actions/App/Http/Controllers/TestController';
 import { columns } from './columns';
+import { Button } from '@/components/ui/button';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,7 +30,25 @@ export default function TestPage({ users }: Props) {
         <>
             <Head title="" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <DataTable columns={columns} paginator={users} action={index} />
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Data Table Example</CardTitle>
+                        <CardDescription>
+                            Contoh deskripsi untuk data table. Anda dapat
+                            mengganti ini dengan informasi yang relevan tentang
+                            data table yang ditampilkan.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <DataTable
+                            columns={columns}
+                            paginator={users}
+                            action={index}
+                        >
+                            <Button>Create New</Button>
+                        </DataTable>
+                    </CardContent>
+                </Card>
             </div>
         </>
     );

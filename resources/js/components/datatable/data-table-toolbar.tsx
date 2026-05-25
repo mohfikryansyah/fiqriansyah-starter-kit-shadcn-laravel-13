@@ -80,7 +80,7 @@ export function DataTableToolbar<TData>({
                         placeholder="Cari..."
                         value={search}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        className="w-full bg-gray-50 xl:w-62.5 dark:bg-neutral-800"
+                        className="w-full border border-gray-300 bg-gray-50 focus:border-primary focus:ring-2 focus:ring-primary xl:w-62.5 dark:border-neutral-700 dark:bg-neutral-800"
                     />
                 )}
 
