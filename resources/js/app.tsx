@@ -22,17 +22,18 @@ createInertiaApp({
                 return AppLayout;
         }
     },
-    strictMode: true,
+    strictMode: false,
     withApp(app) {
         return (
             <TooltipProvider delayDuration={0}>
                 {app}
-                <Toaster />
+                <Toaster richColors theme="light" position='top-center'/>
             </TooltipProvider>
         );
     },
     progress: {
-        color: '#4B5563',
+        color: '#ff0000',
+        showSpinner: true,
     },
 });
 

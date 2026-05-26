@@ -21,6 +21,7 @@ interface DataTableToolbarProps<TData> {
     }[];
     search?: string;
     onSearchChange?: (value: string) => void;
+    onReset?: () => void;
 }
 
 export function DataTableToolbar<TData>({
@@ -31,50 +32,15 @@ export function DataTableToolbar<TData>({
     optionsFilter,
     search,
     onSearchChange,
+    onReset,
 }: DataTableToolbarProps<TData>) {
     'use no memo';
-    const isFiltered = table.getState().columnFilters.length > 0;
-    // const isGlobalFiltered = table.getState().globalFilter !== '';
-
-    const [searchValue, setSearchValue] = React.useState('');
-
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setSearchValue(value);
-        table.setGlobalFilter(value);
-    };
-
+    const isFiltered =
+        (search !== undefined && search !== '') ||
+        table.getState().columnFilters.length > 0;
     return (
         <div className="flex items-center justify-between">
             <div className="flex flex-1 flex-col items-center not-xl:space-y-2 xl:flex-row xl:space-x-2">
-                {/* <Input
-                    placeholder="Column search..."
-                    value={(table.getColumn('nama')?.getFilterValue() as string) ?? ''}
-                    onChange={(event) => table.getColumn('nama')?.setFilterValue(event.target.value)}
-                    className="h-8 w-[150px] lg:w-[250px]"
-                /> */}
-
-                {/* <Input
-                    placeholder="Cari sesuatu..."
-                    value={table.getState().globalFilter}
-                    onChange={(event) => table.setGlobalFilter(event.target.value)}
-                    className="w-full bg-gray-50 xl:w-62.5"
-                /> */}
-
-                {/* <Input
-                    placeholder="Cari sesuatu..."
-                    value={searchValue}
-                    onChange={handleSearchChange}
-                    className="w-full bg-gray-50 xl:w-62.5 dark:bg-neutral-800"
-                /> */}
-                {/* {table.getColumn('tipe') && (
-                    <DataTableFacetedFilter
-                            column={table.getColumn('tipe')}
-                            title={titleFilter}
-                            options={LaporanTipeOptions}
-                        />
-                )} */}
-
                 {search !== undefined && onSearchChange !== undefined && (
                     <Input
                         placeholder="Cari..."
@@ -93,11 +59,12 @@ export function DataTableToolbar<TData>({
                             options={optionsFilter}
                         />
                     )}
-                {searchValue && (
+
+                {isFiltered && (
                     <Button
                         variant="ghost"
                         onClick={() => {
-                            setSearchValue('');
+                            onReset?.();
                             table.resetColumnFilters();
                             table.setGlobalFilter('');
                         }}

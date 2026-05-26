@@ -18,8 +18,6 @@ Template starter modern menggunakan Laravel, Inertia.js, React, TypeScript, Tail
 
 ## 📸 Preview
 
-Tambahkan screenshot project di sini.
-
 ```bash
 /public/screenshoot-project.png
 ```
@@ -163,16 +161,6 @@ Project menggunakan:
 
 ---
 
-## Pisahkan UI dan Logic
-
-```bash
-components/
-hooks/
-services/
-```
-
----
-
 ## Gunakan Shared Types
 
 ```ts
@@ -199,12 +187,6 @@ const form = useForm({
 # 🔐 Authentication
 
 Authentication menggunakan Laravel default authentication.
-
-Jika menggunakan Breeze:
-
-```bash
-php artisan breeze:install react
-```
 
 ---
 
@@ -253,18 +235,6 @@ APP_KEY=
 APP_DEBUG=true
 APP_URL=http://localhost:8000
 ```
-
----
-
-# 🤝 Contributing
-
-Pull request sangat terbuka.
-
-1. Fork repository
-2. Create new branch
-3. Commit changes
-4. Push branch
-5. Create pull request
 
 ---
 

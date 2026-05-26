@@ -30,6 +30,7 @@ import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 import { router } from '@inertiajs/react';
 import { LaravelPaginator } from '@/types';
+import test from '@/routes/test';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -56,6 +57,8 @@ export function DataTable<TData, TValue>({
     children,
     showToolbar = true,
 }: DataTableProps<TData, TValue>) {
+    'use no memo';
+
     const [rowSelection, setRowSelection] = React.useState({});
     const [columnVisibility, setColumnVisibility] =
         React.useState<VisibilityState>({});
@@ -67,14 +70,25 @@ export function DataTable<TData, TValue>({
         pageIndex: paginator.current_page - 1,
         pageSize: paginator.per_page,
     });
+    const isMounted = React.useRef(false);
 
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = React.useMemo(
+        () => new URLSearchParams(window.location.search),
+        [],
+    );
 
     const [search, setSearch] = React.useState(
         searchParams.get('search') ?? '',
     );
 
+    const isFirstRender = React.useRef(true);
+
     React.useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
         const timeout = setTimeout(() => {
             router.get(
                 action.url(),
@@ -97,6 +111,19 @@ export function DataTable<TData, TValue>({
         });
     }, [paginator.current_page, paginator.per_page]);
 
+    const handleReset = () => {
+        setSearch('');
+        router.get(
+            action.url(),
+            { page: 1, per_page: pagination.pageSize },
+            { preserveState: true, preserveScroll: true, replace: true },
+        );
+    };
+
+    React.useEffect(() => {
+        isMounted.current = true;
+    }, []);
+
     const table = useReactTable({
         data: paginator.data,
         columns,
@@ -114,6 +141,7 @@ export function DataTable<TData, TValue>({
         onColumnFiltersChange: setColumnFilters,
         onColumnVisibilityChange: setColumnVisibility,
         onPaginationChange: (updater) => {
+            if (!isMounted.current) return;
             const next =
                 typeof updater === 'function' ? updater(pagination) : updater;
             router.get(
@@ -121,6 +149,8 @@ export function DataTable<TData, TValue>({
                 {
                     page: next.pageIndex + 1,
                     per_page: next.pageSize,
+                    search: search || undefined,
+                    only: ['paginator'],
                 },
                 {
                     preserveState: true,
@@ -148,6 +178,7 @@ export function DataTable<TData, TValue>({
                     columnFilter={columnFilter}
                     search={search}
                     onSearchChange={setSearch}
+                    onReset={handleReset}
                 >
                     {children}
                 </DataTableToolbar>

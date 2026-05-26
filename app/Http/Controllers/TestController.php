@@ -16,6 +16,10 @@ class TestController extends Controller
             })
             ->paginate($request->input('per_page', 10))
             ->withQueryString();
-        return Inertia::render('menu-sidebar/example/example-data-table', compact('users'));
+
+        return Inertia::render('menu-sidebar/example/example-data-table', compact('users'))->flash('toast', [
+            'type' => 'success',
+            'message' => 'Data fetched successfully',
+        ]);
     }
 }

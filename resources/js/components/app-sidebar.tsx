@@ -59,7 +59,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={mainNavItems} sidebargrouplabel={"Main Menu"}/>
             </SidebarContent>
 
             <SidebarFooter>
