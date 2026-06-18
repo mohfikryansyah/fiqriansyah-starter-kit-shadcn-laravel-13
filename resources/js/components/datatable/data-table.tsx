@@ -30,7 +30,7 @@ import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 import { router } from '@inertiajs/react';
 import { LaravelPaginator } from '@/types';
-import test from '@/routes/test';
+import { CustomPagination } from './custom-pagination';
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -140,25 +140,6 @@ export function DataTable<TData, TValue>({
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
         onColumnVisibilityChange: setColumnVisibility,
-        onPaginationChange: (updater) => {
-            if (!isMounted.current) return;
-            const next =
-                typeof updater === 'function' ? updater(pagination) : updater;
-            router.get(
-                action.url(),
-                {
-                    page: next.pageIndex + 1,
-                    per_page: next.pageSize,
-                    search: search || undefined,
-                    only: ['paginator'],
-                },
-                {
-                    preserveState: true,
-                    preserveScroll: true,
-                    replace: true,
-                },
-            );
-        },
         manualPagination: true,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
@@ -244,7 +225,13 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <DataTablePagination table={table} />
+            {/* <DataTablePagination table={table} /> */}
+            <CustomPagination
+                links={paginator.links}
+                path={paginator.path}
+                per_page={paginator.per_page}
+                current_page={paginator.current_page}
+            />
         </div>
     );
 }

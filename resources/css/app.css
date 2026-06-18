@@ -117,6 +117,7 @@
         oklch(0.47 0.157 37.304);
     --radius:
         0.625rem;
+        /* 0.375rem; */
     --sidebar:
         oklch(0.985 0 0);
     --sidebar-foreground:
@@ -137,7 +138,7 @@
 
 .dark {
     --background:
-        oklch(0.145 0 0);
+        oklch(0.1298 0.0425 265.13);
     --foreground:
         oklch(0.985 0 0);
     --card:

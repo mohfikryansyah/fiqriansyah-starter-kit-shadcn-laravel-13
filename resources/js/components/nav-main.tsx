@@ -9,14 +9,26 @@ import {
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import type { NavItem } from '@/types';
 
-export function NavMain({ items = [], sidebargrouplabel }: { items: NavItem[], sidebargrouplabel?: string }) {
+export function NavMain({
+    items = [],
+    sidebargrouplabel,
+}: {
+    items: NavItem[];
+    sidebargrouplabel?: string;
+}) {
     const { isCurrentUrl } = useCurrentUrl();
+
+    const visibleItems = items.filter(
+        (item) => item.permissions === undefined || item.permissions === true,
+    );
 
     return (
         <SidebarGroup className="px-2 py-0">
-            <SidebarGroupLabel>{sidebargrouplabel ?? 'Platform'}</SidebarGroupLabel>
+            <SidebarGroupLabel>
+                {sidebargrouplabel ?? 'Platform'}
+            </SidebarGroupLabel>
             <SidebarMenu>
-                {items.map((item) => (
+                {visibleItems.map((item) => (
                     <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
                             asChild

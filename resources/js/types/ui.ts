@@ -18,4 +18,10 @@ export type AuthLayoutProps = {
     name?: string;
     title?: string;
     description?: string;
+    sideInfo?: {
+        icon: ReactNode;
+        title: string;
+        description: string;
+        fitur?: string[];
+    };
 };

@@ -26,15 +26,15 @@ export default function Profile({
 
     return (
         <>
-            <Head title="Profile settings" />
+            <Head title="Pengaturan Profil" />
 
-            <h1 className="sr-only">Profile settings</h1>
+            <h1 className="sr-only">Pengaturan Profil</h1>
 
             <div className="space-y-6">
                 <Heading
                     variant="small"
-                    title="Profile"
-                    description="Update your name and email address"
+                    title="Profil"
+                    description="Perbarui informasi profil Anda dan alamat email Anda."
                 />
 
                 <Form
@@ -47,7 +47,7 @@ export default function Profile({
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
+                                <Label htmlFor="name">Nama lengkap</Label>
 
                                 <Input
                                     id="name"
@@ -66,7 +66,7 @@ export default function Profile({
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label htmlFor="email">Email</Label>
 
                                 <Input
                                     id="email"
@@ -95,16 +95,14 @@ export default function Profile({
                                                 as="button"
                                                 className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                             >
-                                                Click here to re-send the
-                                                verification email.
+                                                Klik di sini untuk mengirim ulang email verifikasi.
                                             </Link>
                                         </p>
 
                                         {status ===
                                             'verification-link-sent' && (
                                             <div className="mt-2 text-sm font-medium text-green-600">
-                                                A new verification link has been
-                                                sent to your email address.
+                                                Verifikasi email baru telah dikirim ke alamat email Anda.
                                             </div>
                                         )}
                                     </div>
@@ -115,7 +113,7 @@ export default function Profile({
                                     disabled={processing}
                                     data-test="update-profile-button"
                                 >
-                                    Save
+                                    Simpan perubahan
                                 </Button>
                             </div>
                         </>

@@ -11,6 +11,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+import { LogIn, LogInIcon } from 'lucide-react';
 
 type Props = {
     status?: string;
@@ -22,7 +23,7 @@ export default function Login({ status, canResetPassword }: Props) {
         <>
             <Head title="Log in" />
 
-            <PasskeyVerify />
+            {/* <PasskeyVerify /> */}
 
             <Form
                 {...store.form()}
@@ -33,7 +34,7 @@ export default function Login({ status, canResetPassword }: Props) {
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label htmlFor="email">Email</Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -42,7 +43,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     autoFocus
                                     tabIndex={1}
                                     autoComplete="email"
-                                    placeholder="email@example.com"
+                                    placeholder="nama@email.com"
                                 />
                                 <InputError message={errors.email} />
                             </div>
@@ -56,7 +57,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                             className="ml-auto text-sm"
                                             tabIndex={5}
                                         >
-                                            Forgot your password?
+                                            Lupa password?
                                         </TextLink>
                                     )}
                                 </div>
@@ -66,7 +67,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     required
                                     tabIndex={2}
                                     autoComplete="current-password"
-                                    placeholder="Password"
+                                    placeholder="••••••••"
                                 />
                                 <InputError message={errors.password} />
                             </div>
@@ -77,7 +78,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     name="remember"
                                     tabIndex={3}
                                 />
-                                <Label htmlFor="remember">Remember me</Label>
+                                <Label htmlFor="remember">Ingat saya</Label>
                             </div>
 
                             <Button
@@ -93,9 +94,9 @@ export default function Login({ status, canResetPassword }: Props) {
                         </div>
 
                         <div className="text-center text-sm text-muted-foreground">
-                            Don't have an account?{' '}
+                            Apakah Anda tidak memiliki akun?{' '}
                             <TextLink href={register()} tabIndex={5}>
-                                Sign up
+                                Daftar
                             </TextLink>
                         </div>
                     </>
@@ -112,6 +113,15 @@ export default function Login({ status, canResetPassword }: Props) {
 }
 
 Login.layout = {
-    title: 'Log in to your account',
-    description: 'Enter your email and password below to log in',
+    title: 'Selamat datang kembali',
+    description: 'Masukkan email dan password untuk masuk ke akun Anda.',
+    sideInfo: {
+        icon: (
+            <LogInIcon className="size-8 sm:size-10" />
+        ),
+        title: 'Kelola Bisnis Anda dengan Mudah',
+        description:
+            'Sistem Point of Sale modern yang membantu Anda mengelola transaksi, inventori, dan laporan keuangan dengan efisien.',
+        fitur: ['Contoh fitur 1', 'Contoh fitur 2', 'Contoh fitur 3'],
+    },
 };

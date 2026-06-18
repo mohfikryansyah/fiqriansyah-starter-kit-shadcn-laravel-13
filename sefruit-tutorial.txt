@@ -1,0 +1,59 @@
+Jika ingin membuat Dialog tetapi URL berubah. Ini berguna ketika ingin membuat website seperti netflix. 
+Contoh : 
+        URL https://localhost.test/post
+        Lalu saat open Modal url berubah
+        URL https://localhost.test/post/create
+
+==================================
+
+di index.tsx : 
+
+openModal = false
+
+open={modalOpen}
+onClose={() =>
+    router.visit(index(), { preserveState: true })
+}
+
+==================================
+
+di create.tsx :
+
+open: boolean;
+
+onClose: () => void;
+
+<Dialog
+    open={open}
+    onOpenChange={(isOpen) => {
+        if (!isOpen) onClose();
+    }}
+>
+
+</Dialog>
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+/**
+     * Jika Data dari backend sudah unik, langsung ke kode ini saja tanpa perlu menggunakan Set untuk memastikan keunikannya.
+
+     * const emailUsersOptions = users.data.map((item) => ({
+     *     label: item.email,
+     *     value: item.email,
+     * }));
+     *
+     * $users = User::distinct()->pluck('email');
+     *
+     * Disclaimer : ini hanya contoh, karena semua email sudah pasti unik. Gunakan ini pada misalnya Status, Kategori, atau lainnya yang memang memungkinkan adanya duplikasi nilai.
+*/
+
+Jika belum unik : 
+
+const emailUsers = Array.from(
+        new Set(users.data.map((item) => item.email)),
+    );
+
+    const emailUsersOptions = emailUsers.map((email) => ({
+        label: email,
+        value: email,
+    }));

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { store } from '@/routes/password/confirm';
+import { Lock } from 'lucide-react';
 
 export default function ConfirmPassword() {
     return (
@@ -21,9 +22,9 @@ export default function ConfirmPassword() {
                     options: confirmOptions(),
                     submit: confirmStore(),
                 }}
-                label="Confirm with passkey"
-                loadingLabel="Confirming..."
-                separator="Or confirm with password"
+                label="Konfirmasi dengan passkey"
+                loadingLabel="Mengonfirmasi..."
+                separator="Atau konfirmasi dengan password"
             />
 
             <Form {...store.form()} resetOnSuccess={['password']}>
@@ -60,7 +61,13 @@ export default function ConfirmPassword() {
 }
 
 ConfirmPassword.layout = {
-    title: 'Confirm password',
+    title: 'Konfirmasi Password',
     description:
-        'This is a secure area of the application. Please confirm your password before continuing.',
+        'Untuk alasan keamanan, harap konfirmasi password Anda sebelum melanjutkan.',
+    sideInfo: {
+        icon: <Lock className="size-8 sm:size-10" />,
+        title: 'Keamanan Akun',
+        description:
+            'Kami ingin memastikan bahwa itu benar-benar Anda. Silakan konfirmasi password Anda untuk melanjutkan ke area yang aman.',
+    },
 };

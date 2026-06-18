@@ -15,35 +15,40 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
-import test from '@/routes/test';
-
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Example Data Table',
-        href: test.index(),
-        icon: LayoutGrid,
-    },
-];
-
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: FolderGit2,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
-];
+import { useAuthorization } from '@/hooks/use-authorization';
+import posts from '@/routes/posts';
 
 export function AppSidebar() {
+    const { canAny } = useAuthorization();
+
+    const mainNavItems: NavItem[] = [
+        {
+            title: 'Dashboard',
+            href: dashboard(),
+            icon: LayoutGrid,
+            permissions: canAny(['dashboard-access'])
+        },
+        {
+            title: 'Posts',
+            href: posts.index(),
+            icon: LayoutGrid,
+            permissions: canAny(['example-datatable-access'])
+        },
+    ];
+
+    const footerNavItems: NavItem[] = [
+        {
+            title: 'Repository',
+            href: 'https://github.com/laravel/react-starter-kit',
+            icon: FolderGit2,
+        },
+        {
+            title: 'Documentation',
+            href: 'https://laravel.com/docs/starter-kits#react',
+            icon: BookOpen,
+        },
+    ];
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -59,7 +64,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} sidebargrouplabel={"Main Menu"}/>
+                <NavMain items={mainNavItems} sidebargrouplabel={'Main Menu'} />
             </SidebarContent>
 
             <SidebarFooter>

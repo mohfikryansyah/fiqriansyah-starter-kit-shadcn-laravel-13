@@ -1,8 +1,11 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import { dashboard } from '@/routes';
+import { ReactInertiaAppConfig } from 'node_modules/@inertiajs/react/types/types';
 
 export default function Dashboard() {
+    const { auth } = usePage().props;
+
     return (
         <>
             <Head title="Dashboard" />

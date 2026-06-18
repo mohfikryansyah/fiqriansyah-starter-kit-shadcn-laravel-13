@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { logout } from '@/routes';
 import { send } from '@/routes/verification';
+import { MailCheck } from 'lucide-react';
 
 export default function VerifyEmail({ status }: { status?: string }) {
     return (
@@ -43,4 +44,10 @@ VerifyEmail.layout = {
     title: 'Email verification',
     description:
         'Please verify your email address by clicking on the link we just emailed to you.',
+    sideInfo: {
+        icon: <MailCheck className="size-8 sm:size-10" />,
+        title: 'Verifikasi Email',
+        description:
+            'Terima kasih telah mendaftar! Sebelum melanjutkan, silakan periksa email Anda untuk tautan verifikasi. Jika Anda tidak menerima email tersebut, kami dengan senang hati akan mengirimkan tautan lain untuk Anda.',
+    },
 };
